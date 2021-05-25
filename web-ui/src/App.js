@@ -40,8 +40,8 @@ class ShortLink extends React.Component {
   render() {
     const longLink = this.state.longLink;
     return (
-      <fieldset>
-        <legend>Input your long link, i'll short it ;)</legend>
+      <div>
+        <h3>Input your long link, i'll short it ;)</h3>
         <form onSubmit={this.handleSubmit}>
           <label>
             Link:
@@ -54,14 +54,23 @@ class ShortLink extends React.Component {
           <input type="submit" value=" Short it" />
         </form>
         <DisplayShortLink shortLink={this.state.shortLink} />
-      </fieldset>
+      </div>
     );
   }
 }
 
+const Background = "../images/background.jpg";
 function App() {
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        width: `100%`,
+        height: `100%`,
+        backgroundSize: `cover`,
+        background: `url(${Background})`,
+      }}
+    >
       <ShortLink></ShortLink>
     </div>
   );
