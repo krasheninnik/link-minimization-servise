@@ -215,3 +215,16 @@ web-api/.vs/web-api/DesignTimeBuild/.dtbcache.v2
 web-api/web-api/Controllers/UrlTransformationController.cs
 web-api/web-api/bin/Debug/net5.0/Hashids.net.dll
 web-api/web-api/bin/Debug/net5.0/Microsoft.Extensions.ObjectPool.dll
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/link-minimization-servise/v16/.suo
+web-api/web-api/UrlTransformation.db
+web-api/web-api/obj/Release/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
+web-api/web-api/obj/Release/net5.0/web-api.AssemblyInfo.cs
+web-api/web-api/obj/Release/net5.0/web-api.AssemblyInfoInputs.cache
+web-api/web-api/obj/Release/net5.0/web-api.assets.cache
+web-api/web-api/obj/Release/net5.0/web-api.GeneratedMSBuildEditorConfig.editorconfig
+web-api/web-api/UrlTransformation.db
+web-api/web-api/UrlTransformation.db
+web-api/web-api/UrlTransformation.db
