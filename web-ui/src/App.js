@@ -84,8 +84,15 @@ class ShortLink extends React.Component {
   // (it is possible expand validation rules, but we need figure out all requires,
   //   so just impliment there basic 'space' validatoin )
   validateUrl(urlToValidate) {
-    const isValid = !/\s/.test(urlToValidate) && urlToValidate.length > 0;
-    return isValid;
+    let url;
+
+    try {
+      url = new URL(urlToValidate);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
   }
 
   validateLongLinkField(value) {
@@ -96,7 +103,7 @@ class ShortLink extends React.Component {
     longLinkError = longLinkValid
       ? ""
       : value.length > 0
-      ? "URL isn't valid (contain spaces)"
+      ? "URL isn't valid (only absolute http(s) URL is accepted)"
       : "";
 
     this.setState({
