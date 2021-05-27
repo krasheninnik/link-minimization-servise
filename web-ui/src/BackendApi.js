@@ -2,6 +2,7 @@ const https = require("https");
 const queryString = require("query-string");
 
 class BackendApi {
+  hostname = "https://localhost:44336";
   checkStatus(res) {
     if (res.ok) {
       // res.status >= 200 && res.status < 300
@@ -33,10 +34,10 @@ class BackendApi {
   }
 
   async post(longUrl) {
-    const method = "urltransformation";
+    const method = "/api/urltransformation";
     const paramsObject = { longUrl: longUrl };
     const params = queryString.stringify(paramsObject);
-    const endpoint = method + "?" + params;
+    const endpoint = this.hostname + method + "?" + params;
 
     console.log(endpoint);
 

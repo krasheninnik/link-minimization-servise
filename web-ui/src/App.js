@@ -120,7 +120,7 @@ class ShortLink extends React.Component {
     const hostname = window.location.href;
     console.log("in app: " + JSON.stringify(result));
 
-    if (result.success == true) {
+    if (result.success === true) {
       this.setState({
         shortLink: hostname + result.message,
       });
