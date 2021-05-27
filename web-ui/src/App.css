@@ -2,3 +2,11 @@
   text-align: center;
   position: absolute;
 }
+
+h3 {
+  color: #000000;
+}
+
+textarea {
+  resize: none;
+}

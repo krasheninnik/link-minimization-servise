@@ -26,6 +26,8 @@ class CopyExample extends React.Component {
       <div>
         <form>
           <textarea
+            rows="1"
+            cols="40"
             ref={(textarea) => (this.textArea = textarea)}
             value={this.props.textToCopy}
           />
