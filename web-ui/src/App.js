@@ -78,11 +78,11 @@ class ShortLink extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // check URL dont contains 'space symbols'
+  // check URL dont contains 'space symbols' and not empty
   // (it is possible expand validation rules, but we need figure out all requires,
   //   so just impliment there basic 'space' validatoin )
   validateUrl(urlToValidate) {
-    const isValid = !/\s/.test(urlToValidate);
+    const isValid = !/\s/.test(urlToValidate) && urlToValidate.length > 0;
     return isValid;
   }
 
@@ -91,7 +91,11 @@ class ShortLink extends React.Component {
     let longLinkValid = this.state.longLinkValid;
 
     longLinkValid = this.validateUrl(value);
-    longLinkError = longLinkValid ? "" : "URL isn't valid (contains space)";
+    longLinkError = longLinkValid
+      ? ""
+      : value.length > 0
+      ? "URL isn't valid (contain spaces)"
+      : "";
 
     this.setState({
       longLinkError: longLinkError,
