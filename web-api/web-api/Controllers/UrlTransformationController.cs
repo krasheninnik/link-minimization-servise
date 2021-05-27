@@ -26,7 +26,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("/{shortUrl}")]
-        public ActionResult<UrlTransformation> Get(string shortUrl)
+        public ActionResult<string> Get(string shortUrl)
         {
             // parse id from shortUrl:
             NumericalIndexType id = shortenerService.Decode(shortUrl);
@@ -41,6 +41,25 @@ namespace WebApi.Controllers
 
             return RedirectPermanent(item.LongUrl);
         }
+
+        [HttpGet]
+        [Route("test/{shortUrl}")]
+        public ActionResult<UrlTransformation> GetTest(string shortUrl)
+        {
+            // parse id from shortUrl:
+            NumericalIndexType id = shortenerService.Decode(shortUrl);
+
+            // find item by id in database:
+            var item = context.UrlTransformation.Find(id);
+
+            if (item == null)
+            {
+                return NotFound($"404. Sorry, don't have original URL for this short: {shortUrl}");
+            }
+
+            return Ok(item);
+        }
+
 
         [HttpPost]
         public ActionResult<UrlTransformation> Post(string longUrl)
