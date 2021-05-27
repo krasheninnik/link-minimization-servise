@@ -63,6 +63,20 @@ function DisplayShortLink(props) {
   );
 }
 
+// Display api response - short link, if it isn't empty
+function DisplayApiError(props) {
+  if (props.apiError === "") {
+    // render nothing:
+    return <p> </p>;
+  }
+  // render response:
+  return (
+    <div>
+      <h3> api call error: {props.apiError}</h3>
+    </div>
+  );
+}
+
 class ShortLink extends React.Component {
   constructor(props) {
     super(props);
@@ -72,6 +86,7 @@ class ShortLink extends React.Component {
       longLink: "",
       longLinkValid: false,
       longLinkError: "",
+      apiError: "",
 
       shortLink: "",
     };
@@ -130,9 +145,13 @@ class ShortLink extends React.Component {
     if (result.success === true) {
       this.setState({
         shortLink: hostname + "/" + result.message,
+        apiError: "",
       });
     } else {
-      alert(result.message);
+      this.setState({
+        shortLink: "",
+        apiError: result.message,
+      });
     }
   }
 
@@ -158,7 +177,7 @@ class ShortLink extends React.Component {
             />
           </div>
         </form>
-
+        <DisplayApiError apiError={this.state.apiError} />
         <div>{this.state.longLinkError}</div>
         <DisplayShortLink shortLink={this.state.shortLink} />
       </div>
