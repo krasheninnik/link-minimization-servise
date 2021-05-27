@@ -125,7 +125,7 @@ class ShortLink extends React.Component {
         shortLink: hostname + result.message,
       });
     } else {
-      alarm(result.message);
+      alert(result.message);
     }
   }
 
