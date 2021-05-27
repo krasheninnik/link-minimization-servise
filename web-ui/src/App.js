@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+import BackendApi from "./BackendApi";
 
 class CopyExample extends React.Component {
   constructor(props) {
@@ -65,6 +66,7 @@ function DisplayShortLink(props) {
 class ShortLink extends React.Component {
   constructor(props) {
     super(props);
+    this.backendApi = new BackendApi();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       longLink: "",
@@ -112,11 +114,19 @@ class ShortLink extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
-    this.setState({
-      shortLink: "shortlink:" + this.state.longLink,
-    });
+    const result = await this.backendApi.post(this.state.longLink);
+    const hostname = window.location.href;
+    console.log("in app: " + JSON.stringify(result));
+
+    if (result.success == true) {
+      this.setState({
+        shortLink: hostname + result.message,
+      });
+    } else {
+      alarm(result.message);
+    }
   }
 
   render() {
