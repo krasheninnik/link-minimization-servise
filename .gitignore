@@ -212,3 +212,6 @@ web-api/web-api/obj/Debug/net5.0/staticwebassets/web-api.StaticWebAssets.xml
 web-api/web-api/obj/Debug/net5.0/staticwebassets/WebApi.StaticWebAssets.Manifest.cache
 web-api/web-api/obj/Debug/net5.0/staticwebassets/WebApi.StaticWebAssets.xml
 web-api/.vs/web-api/DesignTimeBuild/.dtbcache.v2
+web-api/web-api/Controllers/UrlTransformationController.cs
+web-api/web-api/bin/Debug/net5.0/Hashids.net.dll
+web-api/web-api/bin/Debug/net5.0/Microsoft.Extensions.ObjectPool.dll

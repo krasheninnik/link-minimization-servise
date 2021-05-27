@@ -5,47 +5,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Model;
 
-namespace WebApi.Migrations
+namespace webapi.Migrations
 {
     [DbContext(typeof(DBInteractor))]
-    [Migration("20210525034612_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210527045405_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0-preview.4.21253.1");
+                .HasAnnotation("ProductVersion", "5.0.6");
 
             modelBuilder.Entity("WebApi.Model.UrlTransformation", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("longUrl")
+                    b.Property<string>("LongUrl")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("shortUrl")
+                    b.Property<string>("ShortUrl")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("UrlTransformation");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            longUrl = "long_abc",
-                            shortUrl = "abc"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            longUrl = "long_cde",
-                            shortUrl = "cde"
-                        });
                 });
 #pragma warning restore 612, 618
         }

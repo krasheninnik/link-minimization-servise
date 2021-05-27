@@ -13,12 +13,5 @@ namespace WebApi.Model
             optionsBuilder.UseSqlite(@"Data Source = UrlTransformation.db;");
         }
         public DbSet<UrlTransformation> UrlTransformation { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<UrlTransformation>().HasData(
-                new UrlTransformation() { Id = 1, shortUrl = "abc", longUrl = "long_abc"},
-                new UrlTransformation() { Id = 2, shortUrl = "cde", longUrl = "long_cde" }
-            );
-        }
     }
 }
