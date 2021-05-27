@@ -93,8 +93,6 @@ class ShortLink extends React.Component {
     longLinkValid = this.validateUrl(value);
     longLinkError = longLinkValid ? "" : "URL isn't valid (contains space)";
 
-    console.log("value: " + longLinkError + "   validated: " + longLinkValid);
-
     this.setState({
       longLinkError: longLinkError,
       longLinkValid: longLinkValid,
@@ -113,7 +111,7 @@ class ShortLink extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({
-      shortLink: "short link:" + this.state.longLink,
+      shortLink: "shortlink:" + this.state.longLink,
     });
   }
 
@@ -121,22 +119,25 @@ class ShortLink extends React.Component {
     const longLink = this.state.longLink;
     return (
       <div>
-        <h3>Input your long link, i'll short it ;)</h3>
+        <h3>Input your long link, I'll short it ;)</h3>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Link:
+          <div>
             <input
+              size="60"
               type="text"
               value={this.state.longLink}
               onChange={this.handleChange}
             />
-          </label>
-          <input
-            type="submit"
-            disabled={!this.state.longLinkValid}
-            value="Short it"
-          />
+          </div>
+          <div>
+            <input
+              type="submit"
+              disabled={!this.state.longLinkValid}
+              value="Short it"
+            />
+          </div>
         </form>
+
         <div>{this.state.longLinkError}</div>
         <DisplayShortLink shortLink={this.state.shortLink} />
       </div>
