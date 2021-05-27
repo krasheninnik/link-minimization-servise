@@ -34,7 +34,7 @@ namespace WebApi.Controllers
             // find item by id in database:
             var item = context.UrlTransformation.Find(id);
 
-            if(item == null)
+            if (item == null)
             {
                 return NotFound($"404. Sorry, don't have original URL for this short: {shortUrl}");
             }
@@ -64,6 +64,15 @@ namespace WebApi.Controllers
         [HttpPost]
         public ActionResult<UrlTransformation> Post(string longUrl)
         {
+            // Validate long URL:
+            bool isValideUrl = Uri.TryCreate(longUrl, UriKind.Absolute, out Uri uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+            if (!isValideUrl)
+            {
+                return BadRequest($"400. Can't accept this link, validation error: {longUrl}");
+            }
+
             // add new long url to database:
             var newUrlTransformation = new UrlTransformation() { LongUrl = longUrl, ShortUrl = "" };
             context.UrlTransformation.Add(newUrlTransformation);
