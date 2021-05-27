@@ -49,6 +49,10 @@ namespace WebApi
 
             app.UseRouting();
 
+            // disable CORS policy 
+            // (enables call api from web-ui)
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
