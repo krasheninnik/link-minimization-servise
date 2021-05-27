@@ -117,12 +117,12 @@ class ShortLink extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const result = await this.backendApi.post(this.state.longLink);
-    const hostname = window.location.href;
+    const hostname = this.backendApi.hostname;
     console.log("in app: " + JSON.stringify(result));
 
     if (result.success === true) {
       this.setState({
-        shortLink: hostname + result.message,
+        shortLink: hostname + "/" + result.message,
       });
     } else {
       alert(result.message);
