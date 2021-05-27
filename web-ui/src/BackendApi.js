@@ -30,7 +30,7 @@ class BackendApi {
     }
     console.log(response);
     console.log("-------------------");
-    return response; // parses JSON response into native JavaScript objects
+    return response;
   }
 
   async post(longUrl) {
@@ -54,6 +54,7 @@ class BackendApi {
       console.log("after json()");
       console.log(result);
       console.log(result.shortUrl);
+
       return {
         success: true,
         message: result.shortUrl,
