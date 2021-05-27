@@ -4,16 +4,21 @@ import React from "react";
 class CopyExample extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { copySuccess: "" };
+    this.state = { copySuccessStatus: "" };
+  }
+
+  // reset copySuccessStatus when render with new ShortLink
+  componentDidUpdate(prevProps) {
+    if (this.props.textToCopy !== prevProps.textToCopy) {
+      this.setState({ copySuccessStatus: "" });
+    }
   }
 
   copyToClipboard = (e) => {
     this.textArea.select();
     document.execCommand("copy");
-    // This is just personal preference.
-    // I prefer to not show the whole text area selected.
     e.target.focus();
-    this.setState({ copySuccess: "Copied!" });
+    this.setState({ copySuccessStatus: "Copied!" });
   };
 
   render() {
@@ -31,7 +36,7 @@ class CopyExample extends React.Component {
           document.queryCommandSupported("copy") && (
             <div>
               <button onClick={this.copyToClipboard}>Copy</button>
-              {this.state.copySuccess}
+              {this.state.copySuccessStatus}
             </div>
           )
         }
@@ -49,8 +54,8 @@ function DisplayShortLink(props) {
   // render response:
   return (
     <div>
-      <h3> short link:</h3>
-      <CopyExample textToCopy={props.shortLink} copySuccess=""></CopyExample>
+      <h3> Short link:</h3>
+      <CopyExample textToCopy={props.shortLink}></CopyExample>
     </div>
   );
 }
