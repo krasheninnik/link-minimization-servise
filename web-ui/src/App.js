@@ -66,6 +66,9 @@ class ShortLink extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       longLink: "",
+      longLinkValid: false,
+      longLinkError: "",
+
       shortLink: "",
     };
 
@@ -73,12 +76,39 @@ class ShortLink extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // check URL dont contains 'space symbols'
+  // (it is possible expand validation rules, but we need figure out all requires,
+  //   so just impliment there basic 'space' validatoin )
+  validateUrl(urlToValidate) {
+    const isValid = !/\s/.test(urlToValidate);
+    return isValid;
+  }
+
+  validateLongLinkField(value) {
+    let longLinkError = this.state.longLinkLinkError;
+    let longLinkValid = this.state.longLinkValid;
+
+    longLinkValid = this.validateUrl(value);
+    longLinkError = longLinkValid ? "" : "URL isn't valid (contains space)";
+
+    console.log("value: " + longLinkError + "   validated: " + longLinkValid);
+
+    this.setState({
+      longLinkError: longLinkError,
+      longLinkValid: longLinkValid,
+    });
+  }
+
   handleChange(event) {
-    this.setState({ longLink: event.target.value });
+    // delete redundant spaces
+    const value = event.target.value.trim();
+
+    this.setState({ longLink: value }, () => {
+      this.validateLongLinkField(value);
+    });
   }
 
   handleSubmit(event) {
-    // alert("get long link: " + this.state.longLink);
     event.preventDefault();
     this.setState({
       shortLink: "short link:" + this.state.longLink,
@@ -99,8 +129,13 @@ class ShortLink extends React.Component {
               onChange={this.handleChange}
             />
           </label>
-          <input type="submit" value="Short it" />
+          <input
+            type="submit"
+            disabled={!this.state.longLinkValid}
+            value="Short it"
+          />
         </form>
+        <div>{this.state.longLinkError}</div>
         <DisplayShortLink shortLink={this.state.shortLink} />
       </div>
     );
