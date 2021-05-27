@@ -1,6 +1,44 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
+
+class CopyExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { copySuccess: "" };
+  }
+
+  copyToClipboard = (e) => {
+    this.textArea.select();
+    document.execCommand("copy");
+    // This is just personal preference.
+    // I prefer to not show the whole text area selected.
+    e.target.focus();
+    this.setState({ copySuccess: "Copied!" });
+  };
+
+  render() {
+    return (
+      <div>
+        <form>
+          <textarea
+            ref={(textarea) => (this.textArea = textarea)}
+            value={this.props.textToCopy}
+          />
+        </form>
+        {
+          /* Logical shortcut for only displaying the 
+            button if the copy command exists */
+          document.queryCommandSupported("copy") && (
+            <div>
+              <button onClick={this.copyToClipboard}>Copy</button>
+              {this.state.copySuccess}
+            </div>
+          )
+        }
+      </div>
+    );
+  }
+}
 
 // Display api response - short link, if it isn't empty
 function DisplayShortLink(props) {
@@ -9,7 +47,12 @@ function DisplayShortLink(props) {
     return <p> </p>;
   }
   // render response:
-  return <p> short link: {props.shortLink}</p>;
+  return (
+    <div>
+      <h3> short link:</h3>
+      <CopyExample textToCopy={props.shortLink} copySuccess=""></CopyExample>
+    </div>
+  );
 }
 
 class ShortLink extends React.Component {
@@ -30,10 +73,10 @@ class ShortLink extends React.Component {
   }
 
   handleSubmit(event) {
-    alert("get long link: " + this.state.longLink);
+    // alert("get long link: " + this.state.longLink);
     event.preventDefault();
     this.setState({
-      shortLink: "-----api---returned--short---link-----" + this.state.longLink,
+      shortLink: "short link:" + this.state.longLink,
     });
   }
 
@@ -51,7 +94,7 @@ class ShortLink extends React.Component {
               onChange={this.handleChange}
             />
           </label>
-          <input type="submit" value=" Short it" />
+          <input type="submit" value="Short it" />
         </form>
         <DisplayShortLink shortLink={this.state.shortLink} />
       </div>
