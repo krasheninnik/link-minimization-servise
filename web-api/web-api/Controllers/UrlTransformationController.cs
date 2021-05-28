@@ -29,8 +29,16 @@ namespace WebApi.Controllers
         [Route("/{shortUrl}")]
         public ActionResult<string> Get(string shortUrl)
         {
+            NumericalIndexType id = 0;
             // parse id from shortUrl:
-            NumericalIndexType id = shortenerService.Decode(shortUrl);
+            try
+            {
+                id = shortenerService.Decode(shortUrl);
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"400. Short link contains an unallowed character {e.Message}");
+            }
 
             // find item by id in database:
             var item = context.UrlTransformation.Find(id);
@@ -44,13 +52,21 @@ namespace WebApi.Controllers
         }
 
         // Return record for this short Url
-        // ( Just GET method method without redirect for debug purpose)
+        // ( Just GET method without redirect for debug purpose)
         [HttpGet]
         [Route("test/{shortUrl}")]
         public ActionResult<UrlTransformation> GetTest(string shortUrl)
         {
+            NumericalIndexType id = 0;
             // parse id from shortUrl:
-            NumericalIndexType id = shortenerService.Decode(shortUrl);
+            try
+            {
+                id = shortenerService.Decode(shortUrl);
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"400. Short link contains an unallowed character {e.Message}");
+            }
 
             // find item by id in database:
             var item = context.UrlTransformation.Find(id);
