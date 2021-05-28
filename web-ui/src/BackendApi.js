@@ -1,7 +1,16 @@
 const queryString = require("query-string");
 
 class BackendApi {
-  hostname = "https://localhost:44336";
+  hostname = "https://localhost:5001"; // default hostname
+
+  BackendApi() {
+    // set hostname from env variable, if it's setted
+    const hostnameFromEnv = process.env["WEBAPI_URLSHORTER_HOSTNAME"];
+    if (hostnameFromEnv !== undefined) {
+      this.hostname = hostnameFromEnv;
+    }
+  }
+
   checkStatus(res) {
     if (res.ok) {
       // res.status >= 200 && res.status < 300
