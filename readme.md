@@ -37,14 +37,14 @@ npm i
 ### windows, cmd:
 
 ```bash
-set REACT_APP_WEBAPI_URLSHORTER_HOSTNAME=https:\\localhost:5005
+set REACT_APP_WEBAPI_URLSHORTER_HOSTNAME=https:\\localhost:5001
 echo %REACT_APP_WEBAPI_URLSHORTER_HOSTNAME%
 ```
 
 ### linux, bash:
 
 ```bash
-export REACT_APP_WEBAPI_URLSHORTER_HOSTNAME=https:\\localhost:5005
+export REACT_APP_WEBAPI_URLSHORTER_HOSTNAME=https:\\localhost:5001
 echo $REACT_APP_WEBAPI_URLSHORTER_HOSTNAME
 ```
 
