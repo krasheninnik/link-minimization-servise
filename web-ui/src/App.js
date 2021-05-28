@@ -97,13 +97,20 @@ class ShortUrl extends React.Component {
   validateUrl(urlToValidate) {
     let url;
 
+    // validate url
     try {
       url = new URL(urlToValidate);
     } catch (_) {
       return false;
     }
 
-    return url.protocol === "http:" || url.protocol === "https:";
+    // validate url don't contains spaces
+    const isNotContainsSpaces = !/\s/.test(urlToValidate);
+
+    return (
+      (url.protocol === "http:" || url.protocol === "https:") &&
+      isNotContainsSpaces
+    );
   }
 
   validateLongUrlField(value) {
