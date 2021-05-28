@@ -20,6 +20,7 @@ namespace WebApi.Services
                 .ToDictionary(c => c.Char, c => (NumericalIndexType)c.Index);
         }
 
+        // Encode Numberical Id in String 
         public string Encode(NumericalIndexType seed)
         {
             if (seed < Base)
@@ -39,6 +40,7 @@ namespace WebApi.Services
             return str.ToString();
         }
 
+        // Decode Numerical Id from String
         public NumericalIndexType Decode(string str)
         {
             NumericalIndexType agregateSum = 0;

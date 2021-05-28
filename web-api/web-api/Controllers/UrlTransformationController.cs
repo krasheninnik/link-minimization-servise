@@ -24,6 +24,7 @@ namespace WebApi.Controllers
             _logger = logger;
         }
 
+        // Redirect on long URL by short Url
         [HttpGet]
         [Route("/{shortUrl}")]
         public ActionResult<string> Get(string shortUrl)
@@ -42,6 +43,8 @@ namespace WebApi.Controllers
             return RedirectPermanent(item.LongUrl);
         }
 
+        // Return record for this short Url
+        // ( Just GET method method without redirect for debug purpose)
         [HttpGet]
         [Route("test/{shortUrl}")]
         public ActionResult<UrlTransformation> GetTest(string shortUrl)
@@ -60,7 +63,7 @@ namespace WebApi.Controllers
             return Ok(item);
         }
 
-
+        // Create short url for long url
         [HttpPost]
         public ActionResult<UrlTransformation> Post(string longUrl)
         {
