@@ -2,19 +2,21 @@ import "./App.css";
 import React from "react";
 import BackendApi from "./BackendApi";
 
+// Component for rendering resulting short link
 class CopyExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = { copySuccessStatus: "" };
   }
 
-  // reset copySuccessStatus when render with new ShortLink
+  // Reset copySuccessStatus when render with new ShortUrl
   componentDidUpdate(prevProps) {
     if (this.props.textToCopy !== prevProps.textToCopy) {
       this.setState({ copySuccessStatus: "" });
     }
   }
 
+  // Copy text with short link from textarea in clickboard
   copyToClipboard = (e) => {
     this.textArea.select();
     document.execCommand("copy");
@@ -48,56 +50,50 @@ class CopyExample extends React.Component {
   }
 }
 
-// Display api response - short link, if it isn't empty
-function DisplayShortLink(props) {
-  if (props.shortLink === "") {
+// Component for render api response - "short link", if it isn't empty
+function DisplayShortUrl(props) {
+  if (props.shortUrl === "") {
     // render nothing:
     return <p> </p>;
   }
   // render response:
   return (
     <div>
-      <h3> Short link:</h3>
-      <CopyExample textToCopy={props.shortLink}></CopyExample>
+      <h3> Short URL:</h3>
+      <CopyExample textToCopy={props.shortUrl}></CopyExample>
     </div>
   );
 }
 
-// Display api response - short link, if it isn't empty
+// Component for render api error - "error message", if it isn't empty
 function DisplayApiError(props) {
   if (props.apiError === "") {
     // render nothing:
     return <p> </p>;
   }
-  // render response:
-  return (
-    <div>
-      <h3> api call error: {props.apiError}</h3>
-    </div>
-  );
+  // render message with api error:
+  return <h3> api call error: {props.apiError}</h3>;
 }
 
-class ShortLink extends React.Component {
+// Component with main ShortUrl functionality
+class ShortUrl extends React.Component {
   constructor(props) {
     super(props);
     this.backendApi = new BackendApi();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      longLink: "",
-      longLinkValid: false,
-      longLinkError: "",
+      longUrl: "",
+      longUrlValid: false,
+      longUrlError: "",
       apiError: "",
 
-      shortLink: "",
+      shortUrl: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // check URL dont contains 'space symbols' and not empty
-  // (it is possible expand validation rules, but we need figure out all requires,
-  //   so just impliment there basic 'space' validatoin )
   validateUrl(urlToValidate) {
     let url;
 
@@ -110,20 +106,20 @@ class ShortLink extends React.Component {
     return url.protocol === "http:" || url.protocol === "https:";
   }
 
-  validateLongLinkField(value) {
-    let longLinkError = this.state.longLinkLinkError;
-    let longLinkValid = this.state.longLinkValid;
+  validateLongUrlField(value) {
+    let longUrlError = this.state.longUrlLinkError;
+    let longUrlValid = this.state.longUrlValid;
 
-    longLinkValid = this.validateUrl(value);
-    longLinkError = longLinkValid
+    longUrlValid = this.validateUrl(value);
+    longUrlError = longUrlValid
       ? ""
       : value.length > 0
       ? "URL isn't valid (only absolute http(s) URL is accepted)"
       : "";
 
     this.setState({
-      longLinkError: longLinkError,
-      longLinkValid: longLinkValid,
+      longUrlError: longUrlError,
+      longUrlValid: longUrlValid,
     });
   }
 
@@ -131,73 +127,70 @@ class ShortLink extends React.Component {
     // delete redundant spaces
     const value = event.target.value.trim();
 
-    this.setState({ longLink: value }, () => {
-      this.validateLongLinkField(value);
+    this.setState({ longUrl: value }, () => {
+      this.validateLongUrlField(value);
     });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    const result = await this.backendApi.post(this.state.longLink);
+    const result = await this.backendApi.post(this.state.longUrl);
     const hostname = this.backendApi.hostname;
     console.log("in app: " + JSON.stringify(result));
 
     if (result.success === true) {
       this.setState({
-        shortLink: hostname + "/" + result.message,
+        shortUrl: hostname + "/" + result.message,
         apiError: "",
       });
     } else {
       this.setState({
-        shortLink: "",
+        shortUrl: "",
         apiError: result.message,
       });
     }
   }
 
   render() {
-    const longLink = this.state.longLink;
+    const longUrl = this.state.longUrl;
     return (
       <div>
-        <h3>Input your long link, I'll short it ;)</h3>
+        <h3>Input your URL, I'll short it ;)</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
             <input
               size="60"
               type="text"
-              value={this.state.longLink}
+              value={this.state.longUrl}
               onChange={this.handleChange}
             />
           </div>
           <div>
             <input
               type="submit"
-              disabled={!this.state.longLinkValid}
+              disabled={!this.state.longUrlValid}
               value="Short it"
             />
           </div>
         </form>
         <DisplayApiError apiError={this.state.apiError} />
-        <div>{this.state.longLinkError}</div>
-        <DisplayShortLink shortLink={this.state.shortLink} />
+        <div>{this.state.longUrlError}</div>
+        <DisplayShortUrl shortUrl={this.state.shortUrl} />
       </div>
     );
   }
 }
 
-const Background = "../images/background.jpg";
+// App component:
+// 1. Set background
+// 2. Render main ShortUrl functionality
 function App() {
   return (
     <div
       className="App"
-      style={{
-        width: `100%`,
-        height: `100%`,
-        backgroundSize: `cover`,
-        background: `url(${Background})`,
-      }}
+      style={{ background: `url("../images/background.jpg")` }}
     >
-      <ShortLink></ShortLink>
+      <ShortUrl></ShortUrl>
     </div>
   );
 }
