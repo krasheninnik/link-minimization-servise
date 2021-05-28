@@ -136,7 +136,6 @@ class ShortUrl extends React.Component {
     event.preventDefault();
     const result = await this.backendApi.post(this.state.longUrl);
     const hostname = this.backendApi.hostname;
-    console.log("in app: " + JSON.stringify(result));
 
     if (result.success === true) {
       this.setState({

@@ -30,7 +30,17 @@ npm i
 
 ## Input parameters from enviroment variable:
 
-`WEBAPI_URLSHORTER_HOSTNAME` - if `web-api` will start on the custom hostname/port, then set in environment variable `WEBAPI_URLSHORTER_HOSTNAME` actual hostname and port (in format `https:\\localhost:5001`). by default used: `https:\\localhost:5001`
+`REACT_APP_WEBAPI_URLSHORTER_HOSTNAME` - if `web-api` will start on the custom hostname/port, then set in this env actual hostname and port (in format `https:\\localhost:5001`). by default used: `https:\\localhost:5001`
+
+### windows, cmd:
+
+set REACT_APP_WEBAPI_URLSHORTER_HOSTNAME=https:\\localhost:5005
+echo %REACT_APP_WEBAPI_URLSHORTER_HOSTNAME%
+
+### linux, bash:
+
+export REACT_APP_WEBAPI_URLSHORTER_HOSTNAME=https:\\localhost:5001
+echo $REACT_APP_WEBAPI_URLSHORTER_HOSTNAME
 
 ## Run
 

@@ -3,9 +3,9 @@ const queryString = require("query-string");
 class BackendApi {
   hostname = "https://localhost:5001"; // default hostname
 
-  BackendApi() {
+  constructor() {
     // set hostname from env variable, if it's setted
-    const hostnameFromEnv = process.env["WEBAPI_URLSHORTER_HOSTNAME"];
+    const hostnameFromEnv = process.env["REACT_APP_WEBAPI_URLSHORTER_HOSTNAME"];
     if (hostnameFromEnv !== undefined) {
       this.hostname = hostnameFromEnv;
     }
