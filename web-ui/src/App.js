@@ -109,7 +109,7 @@ class ShortUrl extends React.Component {
       return false;
     }
 
-    // validate url don't contains spaces
+    // check validate url don't contains spaces
     const isNotContainsSpaces = !/\s/.test(urlToValidate);
 
     return (
@@ -119,11 +119,9 @@ class ShortUrl extends React.Component {
   }
 
   validateLongUrlField(value) {
-    let longUrlError = this.state.longUrlLinkError;
-    let longUrlValid = this.state.longUrlValid;
-
-    longUrlValid = this.validateUrl(value);
-    longUrlError = longUrlValid
+    // validate url and set error message, if url validation failed
+    const longUrlValid = this.validateUrl(value);
+    const longUrlError = longUrlValid
       ? ""
       : value.length > 0
       ? "URL isn't valid (only absolute http(s) URL is accepted)"
@@ -146,15 +144,20 @@ class ShortUrl extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+
+    // call backendApi to match long url its short url
     const result = await this.backendApi.post(this.state.longUrl);
     const hostname = this.backendApi.hostname;
 
+    // dependent on api call success
     if (result.success === true) {
+      // set short url:
       this.setState({
         shortUrl: hostname + "/" + result.message,
         apiError: "",
       });
     } else {
+      // set api error:
       this.setState({
         shortUrl: "",
         apiError: result.message,
@@ -163,7 +166,6 @@ class ShortUrl extends React.Component {
   }
 
   render() {
-    const longUrl = this.state.longUrl;
     return (
       <div>
         <h3>Input your URL, I'll short it ;)</h3>
