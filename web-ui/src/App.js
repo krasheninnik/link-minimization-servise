@@ -145,6 +145,15 @@ class ShortUrl extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
 
+    // if previous api request end up with error,
+    // then reset short url and api error
+    if (this.state.apiError !== "") {
+      this.setState({
+        shortUrl: "",
+        apiError: "",
+      });
+    }
+
     // call backendApi to match long url its short url
     const result = await this.backendApi.post(this.state.longUrl);
     const hostname = this.backendApi.hostname;
