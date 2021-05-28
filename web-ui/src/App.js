@@ -40,8 +40,12 @@ class CopyExample extends React.Component {
             button if the copy command exists */
           document.queryCommandSupported("copy") && (
             <div>
-              <button onClick={this.copyToClipboard}>Copy</button>
-              {this.state.copySuccessStatus}
+              <div style={{ display: "inline-block" }}>
+                <button onClick={this.copyToClipboard}>Copy</button>
+              </div>
+              <div style={{ display: "inline-block", marginLeft: "10px" }}>
+                {this.state.copySuccessStatus}
+              </div>
             </div>
           )
         }
