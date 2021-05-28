@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import BackendApi from "./BackendApi";
+import HashLoader from "react-spinners/HashLoader";
 
 // Component for rendering resulting short link
 class CopyExample extends React.Component {
@@ -91,7 +92,7 @@ class ShortUrl extends React.Component {
       longUrlValid: false,
       longUrlError: "",
       apiError: "",
-
+      apiRequestInProcess: false,
       shortUrl: "",
     };
 
@@ -146,11 +147,17 @@ class ShortUrl extends React.Component {
     event.preventDefault();
 
     // if previous api request end up with error,
-    // then reset short url and api error
+    // then reset short url and api error, and
+    // set apiRequestInProcess flag in true
     if (this.state.apiError !== "") {
       this.setState({
         shortUrl: "",
         apiError: "",
+        apiRequestInProcess: true,
+      });
+    } else {
+      this.setState({
+        apiRequestInProcess: true,
       });
     }
 
@@ -164,12 +171,14 @@ class ShortUrl extends React.Component {
       this.setState({
         shortUrl: hostname + "/" + result.message,
         apiError: "",
+        apiRequestInProcess: false,
       });
     } else {
       // set api error:
       this.setState({
         shortUrl: "",
         apiError: result.message,
+        apiRequestInProcess: false,
       });
     }
   }
@@ -188,11 +197,26 @@ class ShortUrl extends React.Component {
             />
           </div>
           <div>
-            <input
-              type="submit"
-              disabled={!this.state.longUrlValid}
-              value="Short it"
-            />
+            <div style={{ display: "inline-block", marginTop: "10px" }}>
+              <input
+                type="submit"
+                disabled={!this.state.longUrlValid}
+                value="Short it"
+              />
+            </div>
+            <div
+              style={{
+                display: "inline-block",
+                marginLeft: "20px",
+                marginBottom: "4px",
+              }}
+            >
+              <HashLoader
+                color="#0C7763"
+                loading={this.state.apiRequestInProcess}
+                size={20}
+              />
+            </div>
           </div>
         </form>
         <DisplayApiError apiError={this.state.apiError} />
