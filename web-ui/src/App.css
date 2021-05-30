@@ -6,10 +6,19 @@
   background-size: cover;
 }
 
-h3 {
-  color: #000000;
+a:link,
+a:visited {
+  background-color: rgba(144, 238, 144, 0.205);
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 
-textarea {
-  resize: none;
+a:hover,
+a:active {
+  background-color: green;
+  color: white;
 }

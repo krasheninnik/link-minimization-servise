@@ -19,24 +19,15 @@ class DisplayWithCopyButton extends React.Component {
 
   // Copy shortUrl from textarea in clickboard
   copyToClipboard = (e) => {
-    this.textArea.select();
-    document.execCommand("copy");
-    e.target.focus();
+    navigator.clipboard.writeText(this.props.textToCopy);
     this.setState({ copySuccessStatus: "Copied!" });
   };
 
   render() {
     return (
       <div>
-        <form>
-          <textarea
-            readOnly
-            rows="1"
-            cols="40"
-            ref={(textarea) => (this.textArea = textarea)}
-            value={this.props.textToCopy}
-          />
-        </form>
+        <a href={this.props.textToCopy}> {this.props.textToCopy} </a>
+
         {
           /* Logical shortcut for only displaying the 
             button if the copy command exists */
