@@ -61,7 +61,7 @@ namespace WebApi.Services.Tests
         public void Decode_and_encode_id_12832_three_rank()
         {
             UInt64 expectedId = 12832; //    3 * 62^2 + (20 * 62) + 60 
-            String expectedEncoded = "3kY"; // Alphabet[3] == 'k', Alphabet[20] == 'k', Alphabet[60] == 'Y'
+            String expectedEncoded = "3kY"; // Alphabet[3] == '3', Alphabet[20] == 'k', Alphabet[60] == 'Y'
 
             ShortenerService s = new ShortenerService();
             string actualEncoded = s.Encode(expectedId);
