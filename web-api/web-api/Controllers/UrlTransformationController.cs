@@ -51,34 +51,6 @@ namespace WebApi.Controllers
             return RedirectPermanent(item.LongUrl);
         }
 
-        // Return record for this short Url
-        // ( Just GET method without redirect for debug purpose)
-        [HttpGet]
-        [Route("test/{shortUrl}")]
-        public ActionResult<UrlTransformation> GetTest(string shortUrl)
-        {
-            NumericalIndexType id = 0;
-            // parse id from shortUrl:
-            try
-            {
-                id = shortenerService.Decode(shortUrl);
-            }
-            catch (Exception e)
-            {
-                return BadRequest($"400. Short link contains an unallowed character {e.Message}");
-            }
-
-            // find item by id in database:
-            var item = context.UrlTransformation.Find(id);
-
-            if (item == null)
-            {
-                return NotFound($"404. Sorry, don't have original URL for this short: {shortUrl}");
-            }
-
-            return Ok(item);
-        }
-
         // Create short url for long url
         [HttpPost]
         public ActionResult<UrlTransformation> Post(string longUrl)
