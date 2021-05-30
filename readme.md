@@ -22,7 +22,7 @@ function:
 
 ### web-ui
 
-in `link-minimization-servise/web-ui` folder:
+in `link-minimization-servise\web-ui` folder:
 
 ```bash
 npm ci
@@ -52,7 +52,7 @@ echo $REACT_APP_WEBAPI_URLSHORTER_HOSTNAME
 
 ### web-ui
 
-in `link-minimization-servise/web-ui` folder:
+in `link-minimization-servise\web-ui` folder:
 
 ```bash
 npm run start
@@ -60,7 +60,7 @@ npm run start
 
 ### web-api
 
-in `link-minimization-servise/web-api` folder:
+in `link-minimization-servise\web-api` folder:
 
 ```bash
 dotnet run --project web-api
