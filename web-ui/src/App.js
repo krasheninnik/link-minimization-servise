@@ -88,7 +88,6 @@ class ShortUrl extends React.Component {
   constructor(props) {
     super(props);
     this.backendApi = new BackendApi();
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       longUrl: "",
       longUrlValid: false,

@@ -24,34 +24,20 @@ class BackendApi {
     }
   }
 
-  async postRequest(url) {
-    // set request options
-    const options = {
-      method: "POST",
-    };
-
-    // request:
-    let response;
-    try {
-      response = await fetch(url, options);
-    } catch (e) {
-      throw e;
-    }
-
-    return response;
-  }
-
   async post(longUrl) {
     // set post options:
     const method = "/api/urltransformation";
     const paramsObject = { longUrl: longUrl };
     const params = queryString.stringify(paramsObject);
     const endpoint = this.hostname + method + "?" + params;
+    const options = {
+      method: "POST",
+    };
 
     // request
     let result;
     try {
-      result = await this.postRequest(endpoint);
+      result = await fetch(endpoint, options);
       result = await this.checkStatus(result);
       result = await result.json();
 
