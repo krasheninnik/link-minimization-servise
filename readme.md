@@ -67,3 +67,11 @@ dotnet run --project web-api
 ```
 
 or using VS Studio.
+
+## Troubleshouting
+
+### Api failed with `ERR_CERT_AUTHORITY_INVALID` error:
+
+Click on the link in developer console, confirm "unsafe" transition, come back to application page and "short" again.
+
+![image](https://user-images.githubusercontent.com/47454763/120106011-8f110300-c185-11eb-819c-449f86e90f73.png)
