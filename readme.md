@@ -25,7 +25,7 @@ function:
 in `link-minimization-servise/web-ui` folder:
 
 ```bash
-npm i
+npm ci
 ```
 
 ## Input parameters from enviroment variable:
@@ -63,5 +63,7 @@ npm run start
 in `link-minimization-servise/web-api` folder:
 
 ```bash
-dotnet run
+dotnet run --project web-api
 ```
+
+or using VS Studio.
