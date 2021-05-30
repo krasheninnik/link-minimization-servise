@@ -58,12 +58,6 @@ namespace WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-
-                // make it possible to call get method in UrlTransformationController 
-                // without "api/urltransformation" in URL
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
