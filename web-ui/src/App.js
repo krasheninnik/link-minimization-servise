@@ -3,21 +3,21 @@ import React from "react";
 import BackendApi from "./BackendApi";
 import HashLoader from "react-spinners/HashLoader";
 
-// Component for rendering resulting short link
-class CopyExample extends React.Component {
+// Component for rendering resulting shortUrl
+class DisplayWithCopyButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = { copySuccessStatus: "" };
   }
 
-  // Reset copySuccessStatus when render with new ShortUrl
+  // Reset copySuccessStatus when render with new shortUrl
   componentDidUpdate(prevProps) {
     if (this.props.textToCopy !== prevProps.textToCopy) {
       this.setState({ copySuccessStatus: "" });
     }
   }
 
-  // Copy text with short link from textarea in clickboard
+  // Copy shortUrl from textarea in clickboard
   copyToClipboard = (e) => {
     this.textArea.select();
     document.execCommand("copy");
@@ -56,7 +56,7 @@ class CopyExample extends React.Component {
   }
 }
 
-// Component for render api response - "short link", if it isn't empty
+// Component for render api response - "shortUrl", if it isn't empty
 function DisplayShortUrl(props) {
   if (props.shortUrl === "") {
     // render nothing:
@@ -66,7 +66,9 @@ function DisplayShortUrl(props) {
   return (
     <div>
       <h3> Short URL:</h3>
-      <CopyExample textToCopy={props.shortUrl}></CopyExample>
+      <DisplayWithCopyButton
+        textToCopy={props.shortUrl}
+      ></DisplayWithCopyButton>
     </div>
   );
 }
@@ -90,9 +92,9 @@ class ShortUrl extends React.Component {
     this.state = {
       longUrl: "",
       longUrlValid: false,
-      longUrlError: "",
-      apiError: "",
-      apiRequestInProcess: false,
+      longUrlError: "", // longUrl validation error message
+      apiError: "", // api error message
+      apiRequestInProcess: false, // shows if api call is in progress
       shortUrl: "",
     };
 
@@ -147,8 +149,8 @@ class ShortUrl extends React.Component {
     event.preventDefault();
 
     // if previous api request end up with error,
-    // then reset short url and api error, and
-    // set apiRequestInProcess flag in true
+    // then reset short url and api error.
+    // also (in any cases) set apiRequestInProcess flag in true
     if (this.state.apiError !== "") {
       this.setState({
         shortUrl: "",
