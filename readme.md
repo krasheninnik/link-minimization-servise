@@ -75,3 +75,5 @@ or using VS Studio.
 Click on the link in developer console, confirm "unsafe" transition, come back to application page and "short" again.
 
 ![image](https://user-images.githubusercontent.com/47454763/120106011-8f110300-c185-11eb-819c-449f86e90f73.png)
+and  
+![image](https://user-images.githubusercontent.com/47454763/120110387-68f45e80-c197-11eb-8963-88a73377cf71.png)
