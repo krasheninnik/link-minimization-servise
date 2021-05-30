@@ -78,7 +78,7 @@ function DisplayApiError(props) {
     return <p> </p>;
   }
   // render message with api error:
-  return <h3> api call error: {props.apiError}</h3>;
+  return <h3> Ops.. something went wrong: {props.apiError}</h3>;
 }
 
 // Component with main ShortUrl functionality
