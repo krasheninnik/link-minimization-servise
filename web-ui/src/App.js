@@ -219,8 +219,8 @@ class ShortUrl extends React.Component {
             </div>
           </div>
         </form>
-        <DisplayApiError apiError={this.state.apiError} />
         <div>{this.state.longUrlError}</div>
+        <DisplayApiError apiError={this.state.apiError} />
         <DisplayShortUrl shortUrl={this.state.shortUrl} />
       </div>
     );

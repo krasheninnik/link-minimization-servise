@@ -11,11 +11,15 @@ class BackendApi {
     }
   }
 
-  checkStatus(res) {
+  async checkStatus(res) {
     if (res.ok) {
       // res.status >= 200 && res.status < 300
       return res;
     } else {
+      if (res.status === 400) {
+        throw Error(await res.text());
+      }
+
       throw Error(res.statusText);
     }
   }
@@ -48,7 +52,7 @@ class BackendApi {
     let result;
     try {
       result = await this.postRequest(endpoint);
-      result = this.checkStatus(result);
+      result = await this.checkStatus(result);
       result = await result.json();
 
       // return result of success api call
